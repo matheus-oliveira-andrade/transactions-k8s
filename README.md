@@ -1,24 +1,16 @@
-## Transactions
+## Introdution
+
+This project aims to provide an API for retrieving account movements, applying concepts like async comunications, observability and use of container orchestration. It is built upon the foundation of the [existing repository here](https://github.com/matheus-oliveira-andrade/transactions) and is designed to run seamlessly in a Kubernetes environment.
+
+## Gettings started
 
 Project to expose, through an API, the report of movements from the accounts. Transactions are created by the `Seed` console application and published to a topic in `RabbitMQ`, then read by the `Movements.AsyncReceiver` application, which processes and saves the data in the `PostgreSQL` database. This data is then exposed through the `Movements.Api` at the `/report/{{accountId}}` endpoint.
 
-### How to run on docker
-
-With docker installed, run
-
-```bash 
-docker-compose up -d
-```
-
-Movements api docs are exposed in [`localhost:9000/movements/swagger`](localhost:9000/movements/swagger)
-
-Logs of all applications are available in kibana exposed in [`localhost:9001`](localhost:9001)
-
 ### How to run on Kubernetes using docker-desktop
 
-1 - execute file [`build-push.sh`](build-push.sh) to build and push all docker images to docker hub
+1 - (optional) execute file [`build-push.sh`](build-push.sh) to build and push all docker images to docker hub
    ```bash
-   ./build-push.sh # optional
+   ./build-push.sh # optional - require login in docker hub 
    ```   
 2 - install ingress controller `ingress-nginx`
 
@@ -40,17 +32,10 @@ Logs of all applications are available in kibana exposed in [`localhost:9001`](l
    - swagger [http://localhost/movements/swagger](http://localhost/movements/swagger)
    - [movement report endpoint](http://localhost/movements/v1/report/123456-78)
 
-
-##### Configuring index pattern:
-   - Access [`localhost:9001/app/management/kibana/indexPatterns`](localhost:9001/app/management/kibana/indexPatterns)
-   - `Create data view`
-   - Type `fluentd-logs` in name
-   - `Create data view` button
-
 ### Technologies
 
 - `C#` was used as the language with `.net 6`, following some of the concepts of `clean architecture`. For `unit tests`, `xunit` and `moq` were used.
-- `Docker` was used for the application containers with `docker-compose` for multi-containers.
+- `Docker` was used for the application containers with `kubernetes` for container orchestration.
 - `PostgreSQL` was chosen as the database.
 - `RabbitMQ` was chosen as the message broker.
 - `Fluentd` was used for log aggregation, sending the logs to `Elastic Search`.

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movements-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: movements-api
+  template:
+    metadata:
+      labels:
+        component: movements-api
+    spec:
+      containers:
+        - name: movements-api
+          image: micrommath/transaction-movements-api
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DOTNET_ENVIRONMENT
+              value: "Production"
+            - name: MovementsDb__Host
+              value: "postgres-cluster-ip-service"
+            - name: MovementsDb__InitialCatalog
+              value: "TransactionsDb"
+            - name: MovementsDb__User
+              value: "xpto"
+            - name: MovementsDb__Password
+              valueFrom:
+                secretKeyRef:
+                  name: movements-db-password
+                  key: MovementsDb_Password
+          readinessProbe:
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8080                    
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8080
+              
+            
+            
+            

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transactions-seed-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: transactions-seed
+  template:
+    metadata:
+      labels:
+        component: transactions-seed
+    spec:
+      containers:
+        - name: transactions-seed
+          image: micrommath/transactions-seed
+          env:
+            - name: DOTNET_ENVIRONMENT
+              value: "Production"
+            - name: RabbitMqOptions__UserName
+              value: "admin"
+            - name: RabbitMqOptions__HostName
+              value: "rabbitmq-cluster-ip-service"
+            - name: RabbitMqOptions__Password
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-mq-password
+                  key: RabbitMq_Password

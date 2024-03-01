@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15.2         
+          ports:
+            - containerPort: 5432              
+          env:
+            - name: POSTGRES_USER
+              value: "xpto"
+            - name: POSTGRES_PASSWORD
+              value: "123Abc!@#"
+            - name: POSTGRES_DB
+              value: "TransactionsDb"

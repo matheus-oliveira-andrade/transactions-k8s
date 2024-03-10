@@ -15,20 +15,6 @@ data:
       </parse>
     </source>
     
-    <filter Transactions.log>
-      @type parser
-      key_name MessageTemplate
-      format json
-      reserve_data true
-    </filter>
-    
-    <filter Transactions.log>
-      @type parser
-      key_name Properties
-      format json
-      reserve_data true
-    </filter>
-    
     <match Transactions.log>
       @type elasticsearch
       host elasticsearch-service

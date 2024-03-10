@@ -29,8 +29,16 @@ Project to expose, through an API, the report of movements from the accounts. Tr
    kubectl apply -f k8s --recursive
    ```   
 5 - Access movements public API 
-   - swagger [http://localhost/movements/swagger](http://localhost/movements/swagger)
-   - [movement report endpoint](http://localhost/movements/v1/report/123456-78)
+   - [Swagger API docs movements](http://localhost/movements/swagger)
+   - [Example get movements report for account 123456-78](http://localhost/movements/v1/report/123456-78)
+
+6 - Logs in kibana
+   - [Local Kibana address](http://localhost/kibana)
+   - Configuring index pattern for see logs:
+       1. [Access](http://localhost/kibana/app/management/kibana/indexPatterns)
+       2. Create data view
+       3. Name: fluentd-logs
+       4. Create data view button
 
 ### Technologies
 

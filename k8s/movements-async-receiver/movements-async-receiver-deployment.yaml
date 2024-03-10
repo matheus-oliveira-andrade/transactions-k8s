@@ -15,6 +15,9 @@ spec:
       containers:
         - name: movements-async-receiver
           image: micrommath/transaction-movements-async-receiver
+          volumeMounts:
+            - name: shared-data
+              mountPath: /logs
           env:
             - name: DOTNET_ENVIRONMENT
               value: "Production"
@@ -39,3 +42,17 @@ spec:
                 secretKeyRef:
                   name: movements-db-password
                   key: MovementsDb_Password
+
+        - name: fluentd
+          image: micrommath/fluentd
+          volumeMounts:
+            - name: fluentd-config-volume
+              mountPath: /fluentd/etc
+            - name: shared-data
+              mountPath: /logs
+      volumes:
+        - name: fluentd-config-volume
+          configMap:
+            name: fluentd-config-map
+        - name: shared-data
+          emptyDir: {}    

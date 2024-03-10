@@ -17,3 +17,10 @@ spec:
                 name: movements-api-cluster-ip-service
                 port:
                   number: 9000
+          - path: /kibana(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kibana-service
+                port:
+                  number: 9000

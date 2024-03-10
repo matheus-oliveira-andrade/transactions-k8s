@@ -17,6 +17,9 @@ spec:
           image: micrommath/transaction-movements-api
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: shared-data
+              mountPath: /logs
           env:
             - name: DOTNET_ENVIRONMENT
               value: "Production"
@@ -33,19 +36,29 @@ spec:
                   key: MovementsDb_Password
           readinessProbe:
             initialDelaySeconds: 3
-            periodSeconds: 5
+            periodSeconds: 60
             failureThreshold: 3
             httpGet:
               path: /healthz
               port: 8080                    
           livenessProbe:
             initialDelaySeconds: 5
-            periodSeconds: 5
+            periodSeconds: 90
             failureThreshold: 3
             httpGet:
               path: /healthz
               port: 8080
               
-            
-            
-            
+        - name: fluentd
+          image: micrommath/fluentd
+          volumeMounts:
+            - name: fluentd-config-volume
+              mountPath: /fluentd/etc  
+            - name: shared-data
+              mountPath: /logs
+      volumes:
+        - name: fluentd-config-volume
+          configMap:
+            name: fluentd-config-map
+        - name: shared-data
+          emptyDir: {}            

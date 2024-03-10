@@ -26,7 +26,7 @@ Project to expose, through an API, the report of movements from the accounts. Tr
    ```   
 4 - Create all k8s resources
    ```bash
-   kubectl apply -f k8s
+   kubectl apply -f k8s --recursive
    ```   
 5 - Access movements public API 
    - swagger [http://localhost/movements/swagger](http://localhost/movements/swagger)

@@ -10,4 +10,3 @@ spec:
     path: /mnt/data/postgres/
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain

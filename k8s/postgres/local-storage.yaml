@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: postgres-local-storage-pv
 spec:
-  storageClassName: local-storage
+  storageClassName: postgres-local-storage
   capacity:
     storage: 700Mi
   hostPath:

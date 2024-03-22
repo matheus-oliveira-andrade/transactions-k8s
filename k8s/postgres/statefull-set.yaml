@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: postgres-deployment
+  name: postgres-db
 spec:
-  replicas: 1
   selector:
     matchLabels:
       component: postgres
+  serviceName: "postgres-svc"
+  replicas: 1
   template:
     metadata:
       labels:
@@ -18,7 +19,7 @@ spec:
           ports:
             - containerPort: 5432   
           volumeMounts:
-            - name: local-storage-volume
+            - name: volume-claim-postgres
               mountPath: /var/lib/postgresql/data
           env:
             - name: POSTGRES_USER
@@ -27,7 +28,13 @@ spec:
               value: "123Abc!@#"
             - name: POSTGRES_DB
               value: "TransactionsDb"
-      volumes:
-        - name: local-storage-volume
-          persistentVolumeClaim:
-            claimName: postgres-local-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: volume-claim-postgres
+      spec:
+        storageClassName: postgres-local-storage
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 700Mi

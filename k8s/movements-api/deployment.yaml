@@ -24,7 +24,7 @@ spec:
             - name: DOTNET_ENVIRONMENT
               value: "Production"
             - name: MovementsDb__Host
-              value: "postgres-cluster-ip-service"
+              value: "postgres-svc"
             - name: MovementsDb__InitialCatalog
               value: "TransactionsDb"
             - name: MovementsDb__User

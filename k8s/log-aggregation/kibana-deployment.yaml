@@ -24,3 +24,10 @@ spec:
               value: "http://elasticsearch-service:9200"
             - name: SERVER_BASEPATH
               value: "/kibana"
+          resources:
+            requests:
+              memory: "600Mi"
+              cpu: "500m"
+            limits:
+              memory: "750Mi"
+              cpu: "600m"   

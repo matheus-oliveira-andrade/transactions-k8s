@@ -3,6 +3,8 @@ kind: StatefulSet
 metadata:
   name: postgres-db
 spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
   selector:
     matchLabels:
       component: postgres

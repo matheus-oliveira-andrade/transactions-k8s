@@ -42,7 +42,13 @@ spec:
                 secretKeyRef:
                   name: movements-db-password
                   key: MovementsDb_Password
-
+          resources:
+            requests:
+              memory: "150Mi"
+              cpu: "250m"
+            limits:
+              memory: "200Mi"
+              cpu: "500m"                  
         - name: fluentd
           image: micrommath/fluentd
           volumeMounts:
@@ -50,6 +56,7 @@ spec:
               mountPath: /fluentd/etc
             - name: shared-data
               mountPath: /logs
+              
       volumes:
         - name: fluentd-config-volume
           configMap:

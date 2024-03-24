@@ -31,6 +31,13 @@ spec:
                   key: MovementsDb_Password
             - name: POSTGRES_DB
               value: "TransactionsDb"
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "250m"
+            limits:
+              memory: "250Mi"
+              cpu: "500m"
   volumeClaimTemplates:
     - metadata:
         name: volume-claim-postgres

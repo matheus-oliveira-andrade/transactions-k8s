@@ -25,3 +25,10 @@ spec:
               value: "admin"
             - name: RABBITMQ_DEFAULT_PASS
               value: "123Abc!@#"
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "250m"
+            limits:
+              memory: "250Mi"
+              cpu: "500m" 

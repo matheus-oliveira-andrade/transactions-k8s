@@ -30,7 +30,13 @@ spec:
                 secretKeyRef:
                   name: rabbit-mq-password
                   key: RabbitMq_Password
-                  
+          resources:
+            requests:
+              memory: "150Mi"
+              cpu: "250m"
+            limits:
+              memory: "200Mi"
+              cpu: "500m"        
         - name: fluentd
           image: micrommath/fluentd
           volumeMounts:

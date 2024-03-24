@@ -31,6 +31,11 @@ spec:
               value: "-Xms2g -Xmx2g"
             - name: xpack.security.enabled
               value: "false"
+          resources:
+            requests:
+              cpu: "400m"
+            limits:
+              cpu: "750m"
   volumeClaimTemplates:
     - metadata:
         name: volume-claim-elasticsearch

@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: elasticsearch-deployment
+  name: elasticsearch
 spec:
-  replicas: 1
   selector:
     matchLabels:
       component: elasticsearch
+  serviceName: elasticsearch-service
+  replicas: 1
   template:
     metadata:
       labels:
@@ -20,6 +21,9 @@ spec:
               containerPort: 9200
             - name: node-to-node
               containerPort: 9300
+          volumeMounts:
+            - name: volume-claim-elasticsearch
+              mountPath: /var/lib/elasticsearch
           env:
             - name: discovery.type
               value: "single-node"
@@ -27,3 +31,13 @@ spec:
               value: "-Xms2g -Xmx2g"
             - name: xpack.security.enabled
               value: "false"
+  volumeClaimTemplates:
+    - metadata:
+        name: volume-claim-elasticsearch
+      spec:
+        storageClassName: elasticsearch-local-storage
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 800Mi

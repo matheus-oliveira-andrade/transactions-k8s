@@ -4,6 +4,7 @@ metadata:
   name: elasticsearch-service
 spec:
   type: ClusterIP
+  clusterIP: None
   selector:
     component: elasticsearch
   ports:

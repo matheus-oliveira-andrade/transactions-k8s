@@ -8,31 +8,17 @@ Project to expose, through an API, the report of movements from the accounts. Tr
 
 ### How to run on Kubernetes using docker-desktop
 
-1 - (optional) execute file [`build-push.sh`](build-push.sh) to build and push all docker images to docker hub
+1 - execute script [`run.sh`](run.sh) to create all required resources
    ```bash
-   ./build-push.sh # optional - require login in docker hub 
-   ```   
-2 - install ingress controller `ingress-nginx`
-
-   ```bash
-   # docs: https://kubernetes.github.io/ingress-nginx/deploy/#quick-start
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
-
+   # use parameter --build-push to build and push docker images
+   ./run.sh # --build-push
    ```
 
-3 - execute file [`/k8s/create-secrets.sh`](/k8s/create-secrets.sh) to create secrets used by containers
-   ```bash
-   ./k8s/create-secrets.sh
-   ```   
-4 - Create all k8s resources
-   ```bash
-   kubectl apply -f k8s --recursive
-   ```   
-5 - Access movements public API 
+2 - Access movements public API 
    - [Swagger API docs movements](http://localhost/movements/swagger)
    - [Example get movements report for account 123456-78](http://localhost/movements/v1/report/123456-78)
 
-6 - Logs in kibana
+3 - Logs in kibana
    - [Local Kibana address](http://localhost/kibana)
    - Configuring index pattern for see logs:
        1. [Access](http://localhost/kibana/app/management/kibana/indexPatterns)
@@ -40,6 +26,10 @@ Project to expose, through an API, the report of movements from the accounts. Tr
        3. Name: fluentd-logs
        4. Create data view button
 
+4 - Clean up, run script [`clean-up.sh`](clean-up.sh)
+   ```bash
+   ./clean-up.sh
+   ```
 ### Technologies
 
 - `C#` was used as the language with `.net 6`, following some of the concepts of `clean architecture`. For `unit tests`, `xunit` and `moq` were used.

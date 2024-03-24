@@ -25,7 +25,10 @@ spec:
             - name: POSTGRES_USER
               value: "xpto"
             - name: POSTGRES_PASSWORD
-              value: "123Abc!@#"
+              valueFrom:
+                secretKeyRef:
+                  name: movements-db-password
+                  key: MovementsDb_Password
             - name: POSTGRES_DB
               value: "TransactionsDb"
   volumeClaimTemplates:

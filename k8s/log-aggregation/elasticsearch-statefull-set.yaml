@@ -3,6 +3,8 @@ kind: StatefulSet
 metadata:
   name: elasticsearch
 spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
   selector:
     matchLabels:
       component: elasticsearch

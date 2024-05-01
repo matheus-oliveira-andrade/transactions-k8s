@@ -42,5 +42,5 @@ Project to expose, through an API, the report of movements from the accounts. Tr
 
 ### Architecture
 
-![architecture](docs/images/transactions-k8s-architecture.png)
+![architecture](docs/architecture.png)
 

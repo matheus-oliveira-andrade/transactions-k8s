@@ -51,5 +51,5 @@ Project to expose, through an API, the report of movements from the accounts. Tr
 - `Fluentd` was used for log aggregation, sending the logs to `Elastic Search`.
 - `Kibana` was used for log visualization.
 - `GitHub Actions` were used for `CI` while the application was being developed, built, and tested on each push.
-
+- `Kubernetes` was used to deploy and host all components
 

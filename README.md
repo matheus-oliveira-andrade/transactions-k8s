@@ -30,6 +30,18 @@ Project to expose, through an API, the report of movements from the accounts. Tr
    ```bash
    ./clean-up.sh
    ```
+
+### Architecture
+
+- **transactions-seed**: Responsible for reading fake data about transactions from a JSON file and then publishing data to a topic
+- **movements-async-receiver**: Responsible for reading events from a queue attached to the topic and saving these movements in a PostgreSQL database
+- **movements-api**: REST API responsible for exposing reports of account movements for an account
+- **nginx ingress**:  Responsible for redirecting traffic to the right locations
+- **fluentd**: Responsible for tailing log files and sending them to Elasticsearch
+- **kibana**: Interface responsible for querying and visualizing logs in Elasticsearch
+
+![architecture](docs/architecture.png)
+
 ### Technologies
 
 - `C#` was used as the language with `.net 6`, following some of the concepts of `clean architecture`. For `unit tests`, `xunit` and `moq` were used.
@@ -39,8 +51,5 @@ Project to expose, through an API, the report of movements from the accounts. Tr
 - `Fluentd` was used for log aggregation, sending the logs to `Elastic Search`.
 - `Kibana` was used for log visualization.
 - `GitHub Actions` were used for `CI` while the application was being developed, built, and tested on each push.
-
-### Architecture
-
-![architecture](docs/architecture.png)
+- `Kubernetes` was used to deploy and host all components
 

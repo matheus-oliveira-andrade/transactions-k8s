@@ -30,15 +30,6 @@ Project to expose, through an API, the report of movements from the accounts. Tr
    ```bash
    ./clean-up.sh
    ```
-### Technologies
-
-- `C#` was used as the language with `.net 6`, following some of the concepts of `clean architecture`. For `unit tests`, `xunit` and `moq` were used.
-- `Docker` was used for the application containers with `kubernetes` for container orchestration.
-- `PostgreSQL` was chosen as the database.
-- `RabbitMQ` was chosen as the message broker.
-- `Fluentd` was used for log aggregation, sending the logs to `Elastic Search`.
-- `Kibana` was used for log visualization.
-- `GitHub Actions` were used for `CI` while the application was being developed, built, and tested on each push.
 
 ### Architecture
 
@@ -50,4 +41,15 @@ Project to expose, through an API, the report of movements from the accounts. Tr
 - **kibana**: Interface responsible for querying and visualizing logs in Elasticsearch
 
 ![architecture](docs/architecture.png)
+
+### Technologies
+
+- `C#` was used as the language with `.net 6`, following some of the concepts of `clean architecture`. For `unit tests`, `xunit` and `moq` were used.
+- `Docker` was used for the application containers with `kubernetes` for container orchestration.
+- `PostgreSQL` was chosen as the database.
+- `RabbitMQ` was chosen as the message broker.
+- `Fluentd` was used for log aggregation, sending the logs to `Elastic Search`.
+- `Kibana` was used for log visualization.
+- `GitHub Actions` were used for `CI` while the application was being developed, built, and tested on each push.
+
 

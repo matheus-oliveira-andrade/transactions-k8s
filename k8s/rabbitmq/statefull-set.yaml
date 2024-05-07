@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: rabbitmq-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
       component: rabbitmq
+  serviceName: "rabbitmq-svc"
+  replicas: 1
   template:
     metadata:
       labels:
@@ -24,7 +25,10 @@ spec:
             - name: RABBITMQ_DEFAULT_USER
               value: "admin"
             - name: RABBITMQ_DEFAULT_PASS
-              value: "123Abc!@#"
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-mq-password
+                  key: RabbitMq_Password
           resources:
             requests:
               memory: "200Mi"

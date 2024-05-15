@@ -1,6 +1,6 @@
-## Introdution
+## Introduction
 
-This project aims to provide an API for retrieving account movements, applying concepts like async comunications, observability and use of container orchestration. It is built upon the foundation of the [existing repository here](https://github.com/matheus-oliveira-andrade/transactions) and is designed to run seamlessly in a Kubernetes environment.
+This project aims to provide an API for retrieving account movements, applying concepts like async communications, observability and use of container orchestration. It is built upon the foundation of the [existing repository here](https://github.com/matheus-oliveira-andrade/transactions) and is designed to run seamlessly in a Kubernetes environment.
 
 ## Getting Started
 
@@ -40,10 +40,14 @@ Project to expose, through an API, the report of movements from the accounts. Tr
    ./clean-up.sh
    ```
 
+### Version running in AWS EKS
+
+[transactions-aws-eks](https://github.com/matheus-oliveira-andrade/transactions-aws-eks)
+
 ### Architecture
 
 - **transactions-seed**: Responsible for reading fake data about transactions from a JSON file and then publishing data to a topic
-- **movements-async-receiver**: Responsible for reading events from a queue attached to the topic and saving these movements in a PostgreSQL database
+- **movements-async-receiver**: Responsible for reading events from a queue attached to the topic and saving these movements in a Postgres SQL database
 - **movements-api**: REST API responsible for exposing reports of account movements for an account
 - **nginx ingress**:  Responsible for redirecting traffic to the right locations
 - **fluentd**: Responsible for tailing log files and sending them to Elasticsearch
